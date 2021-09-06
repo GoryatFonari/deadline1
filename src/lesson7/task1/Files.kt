@@ -3,6 +3,7 @@
 package lesson7.task1
 
 import java.io.File
+import java.util.*
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -75,8 +76,44 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val input = File(inputName).readText()
+    val map = mutableMapOf<String, Int>()
+    for (word in substrings) {
+        val value = finder(input, word)
+        map += word to map.getOrDefault(word, value)
+    }
+    return map
+}
+private fun finder(doc: String, match: String): Int {
+    val docLow = doc.lowercase(Locale.getDefault())
+    var counter = 0
+    var fromIndex = 0
+    while(docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex) > -1) {
+        fromIndex = docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex)
+        fromIndex++
+        counter++
+    }
+    return counter
+}
 
+/**
+val input = (File(inputName).readText()).lowercase(Locale.getDefault())
+val map: MutableMap<String, Int> = mutableMapOf()
+var counter = 0
+for (words in substrings) map += words to map.getOrDefault(words, 0)
+for (words in substrings) {
+val reg: Regex = if (words == ".") Regex("[.]")
+else Regex(words.lowercase(Locale.getDefault()))
+val finder = reg.findAll(input, 0)
+repeat(finder.count()) {
+counter++
+map[words] = map.getValue(words) + 1
+counter = 0
+}
+}
+return map
+ */
 
 /**
  * Средняя (12 баллов)

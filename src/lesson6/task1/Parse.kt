@@ -2,6 +2,9 @@
 
 package lesson6.task1
 
+import java.lang.IllegalArgumentException
+import java.util.*
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -127,7 +130,17 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val test = """[^(0-9)\s+%-]""".toRegex()
+    if (test.find(jumps) == null) {
+        var reg = Regex("""(\D\s\d{3}\s%)""").replace(jumps, "")
+        reg = Regex("""\s\D""").replace(reg, "")
+        val list = reg.split(" ")
+        val list2 = list.map { it.toInt() }
+        return list2.maxOf { it }
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -162,7 +175,16 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    if (description == "") return ""
+    val list = description.split("; ", " ")
+    val map = mutableMapOf<String, Double>()
+    for (i in list.indices) {
+        if (i % 2 == 0) map += list[i] to map.getOrDefault(list[i], list[i + 1].toDouble())
+    }
+    return (map.maxByOrNull { it.value })?.key.toString()
+}
+
 
 /**
  * Сложная (6 баллов)
@@ -213,4 +235,88 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+var currentCell: Int = 0
+val list = emptyList<Int>().toMutableList()
+var brase = ArrayDeque<Int>()
+fun compile(commands: String): List<Pair<Char, Int>> {
+    val listPair: MutableList<Pair<Char, Int>> = mutableListOf()
+    for (i in commands.indices) {
+        if (commands[i] == '[') {
+            listPair.add(commands[i] to -1)
+            brase.push(i)
+        } else if (commands[i] == ']') {
+            if (brase.isEmpty()) throw IllegalArgumentException()
+            val prevIndex = brase.peek()
+            brase.pop()
+            listPair[prevIndex] = listPair[prevIndex].first to i + 1
+            listPair.add(commands[i] to prevIndex + 1)
+        } else listPair.add(commands[i] to i + 1)
+    }
+    if (brase.isNotEmpty()) throw IllegalArgumentException()
+    return listPair
+}
+
+fun leftShift(index: Int): Int {
+    currentCell--
+    if (currentCell < 0) throw IllegalStateException()
+    return index
+}
+
+fun rightShift(index: Int): Int {
+    currentCell++
+    if (currentCell >= list.size) throw IllegalStateException()
+    return index
+}
+
+fun empty(index: Int): Int = index
+fun increment(index: Int): Int {
+    list[currentCell] += 1
+    return index
+}
+
+fun decrement(index: Int): Int {
+    list[currentCell] -= 1
+    return index
+}
+
+fun open(codeIndex: Int, currentIndex: Int): Int {
+    if (list[currentCell] == 0) {
+        return codeIndex
+    }
+    return currentIndex + 1
+}
+
+fun close(codeIndex: Int, currentIndex: Int): Int {
+    if (list[currentCell] != 0) {
+        return codeIndex
+    }
+    return currentIndex + 1
+}
+
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
+    list.clear()
+    brase.clear()
+    currentCell = 0
+
+    var count = 0
+    var index = 0
+    currentCell = cells / 2
+    val code = compile(commands)
+    for (i in 0 until cells) list.add(i, 0)
+    if (commands == "") return list
+    while (limit != count) {
+        index = when (code[index].first) {
+            '<' -> leftShift(code[index].second)
+            '>' -> rightShift(code[index].second)
+            '+' -> increment(code[index].second)
+            '-' -> decrement(code[index].second)
+            '[' -> open(code[index].second, index)
+            ']' -> close(code[index].second, index)
+            ' ' -> empty(code[index].second)
+            else -> throw IllegalArgumentException()
+        }
+        count++
+        if (code.size <= index) break
+    }
+    return list
+}
