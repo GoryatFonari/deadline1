@@ -2,7 +2,9 @@
 
 package lesson2.task2
 
+
 import lesson1.task1.sqr
+import org.junit.Test
 
 /**
  * Пример
@@ -18,7 +20,17 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean = TODO()
+fun isNumberHappy(number: Int): Boolean {
+    var result: Boolean = false
+    if ((number / 1000) % 10 in (1..9)) {
+        val firstPair = ((number / 10) % 10) + (number % 10)
+        val secondPair = ((number / 100) % 10) + ((number / 1000) % 10)
+        if (firstPair == secondPair) {
+            result = true
+        }
+    }
+    return result
+}
 
 /**
  * Простая (2 балла)
@@ -59,4 +71,12 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    var res: Boolean
+    var minBr = minOf(a, b, c)
+    var maxBr = maxOf(a, b, c)
+    var com = (a + b + c) - (minBr + maxBr)
+    var minHo = minOf(r, s)
+    res = (minBr <=minHo) && (com <= (r + s - minHo))
+    return res
+}
