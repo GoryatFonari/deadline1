@@ -246,7 +246,7 @@ fun squareSequenceDigit(n: Int): Int {
             return result
         } else {
             num += 1
-            result = (x1 / degree(abs( -a), 10)) % 10
+            result = (x1 / degree(abs(N -a), 10)) % 10
             return result
         }
     }
