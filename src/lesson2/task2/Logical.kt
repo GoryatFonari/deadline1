@@ -77,6 +77,6 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     var maxBr = maxOf(a, b, c)
     var com = (a + b + c) - (minBr + maxBr)
     var minHo = minOf(r, s)
-    res = (minBr <=minHo) && (com <= (r + s - minHo))
+    res = (minBr <= minHo) && (com <= (r + s - minHo))
     return res
 }

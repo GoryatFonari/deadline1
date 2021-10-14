@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED_PARAMETER")
-
 package lesson3.task1
 
 import java.lang.Math.pow
@@ -221,11 +219,11 @@ private fun degree(n: Int, x: Int): Int {
     return firstValue.toInt()
 }
 fun squareSequenceDigit(n: Int): Int {
-    var result: Int
+    val result: Int
     var a: Int = 0
     var num: Int = 1
     var m: Int = 0
-    var N: Int = n
+    var q: Int = n
     var x1: Int = 0
     var x2: Int = 0
     while (true) {
@@ -236,17 +234,17 @@ fun squareSequenceDigit(n: Int): Int {
             a += 1
             x2 /= 10
         } while (x2 > 0)
-        if (N - a > 0) {
-            N -= a
+        if (q - a > 0) {
+            q -= a
             num += 1
-        } else if (N - a == 0) {
+        } else if (q - a == 0) {
             m = x1 % 10
             num += 1
             result = m
             return result
         } else {
             num += 1
-            result = (x1 / degree(abs(N -a), 10)) % 10
+            result = (x1 / degree(abs(q -a), 10)) % 10
             return result
         }
     }
