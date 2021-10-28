@@ -73,10 +73,10 @@ fun circleInside(
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     var res: Boolean
-    var minBr = minOf(a, b, c)
-    var maxBr = maxOf(a, b, c)
-    var com = (a + b + c) - (minBr + maxBr)
-    var minHo = minOf(r, s)
+    val minBr = minOf(a, b, c)
+    val maxBr = maxOf(a, b, c)
+    val com = (a + b + c) - (minBr + maxBr)
+    val minHo = minOf(r, s)
     res = (minBr <= minHo) && (com <= (r + s - minHo))
     return res
 }
