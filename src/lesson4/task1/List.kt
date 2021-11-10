@@ -285,11 +285,11 @@ fun russian(n: Int): String {
     val n6 = hun[char6]
     var nX = ""
     if (char4 in 1..2) n4 = stup[char4]
-    if (char4 ==1) nX = thous[0]
+    if (char4 == 1) nX = thous[0]
     if (char4 in 2..4) nX = thous[1]
     if (char4 in 5..9 || char4 == 0) {
         nX = thous[2]
-        if (char6 ==0 && char5 == 0 && char4 == 0) nX = ""
+        if (char6 == 0 && char5 == 0 && char4 == 0) nX = ""
     }
     if (char2 == 1 || char1 == 0) {
         n2 = ooo[char1]
