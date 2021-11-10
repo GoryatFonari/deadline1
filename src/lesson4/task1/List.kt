@@ -242,7 +242,6 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var result: String = " "
     val num = listOf("", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX")
     val dec = listOf("", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC")
     val hun = listOf("", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM")
@@ -251,18 +250,11 @@ fun roman(n: Int): String {
     val char2 = (n / 10) % 10
     val char3 = (n / 100) % 10
     val char4 = (n / 1000) % 10
-    var n1 = char1.toString()
-    var n2 = char2.toString()
-    var n3 = char3.toString()
-    var n4 = char4.toString()
-    for (i in 0..9) {
-        if (char1 == i) n1 = num[i]
-        if (char2 == i) n2 = dec[i]
-        if (char3 == i) n3 = hun[i]
-        if (char4 == i) n4 = thous[i]
-        result = n4 + n3 + n2 + n1
-    }
-    return result
+    val n1 = num[char1]
+    val n2 = dec[char2]
+    val n3 = hun[char3]
+    val n4 = thous[char4]
+    return n4 + n3 + n2 + n1
 }
 
 /**
@@ -272,4 +264,45 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+fun russian(n: Int): String {
+    val thous = listOf("тысяча ", "тысячи ", "тысяч ")
+    val num = listOf("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val ooo = listOf("", "одинадцть ", "двенадцать ", " тринадцать "," четырнадцать ", " пятнадцать ", "шестнадцать ", "семьнадцать ", "восемнадцать ", "девятнадцать ")
+    val dec = listOf("", "", "двадцать ","тридцать ","сорок ","пятьдесят ", "шестьдесят ", "семьдесят ", "восемьдесять ", "девяносто ")
+    val hun = listOf("", "сто ", "двести ", "триста ", "чытерсто ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+    val stup = listOf("десять ", "одна ", "две ")
+    val char1 = n % 10
+    val char2 = (n / 10) % 10
+    val char3 = (n / 100) % 10
+    val char4 = (n / 1000) % 10
+    val char5 = (n / 10000) % 10
+    val char6 = (n / 100000) % 10
+    var n1 = num[char1]
+    var n2 = dec[char2]
+    val n3 = hun[char3]
+    var n4 = num[char4]
+    var n5 = dec[char5]
+    val n6 = hun[char6]
+    var nX = ""
+    if (char4 in 1..2) n4 = stup[char4]
+    if (char4 ==1) nX = thous[0]
+    if (char4 in 2..4) nX = thous[1]
+    if (char4 in 5..9 || char4 == 0) {
+        nX = thous[2]
+        if (char6 ==0 && char5 == 0 && char4 == 0) nX = ""
+    }
+    if (char2 == 1 || char1 == 0) {
+        n2 = ooo[char1]
+        n1 = ""
+    }
+    if (char5 == 1) {
+        n5 = ooo[char4]
+        n4 = ""
+        if (char5 == 1 && char4 == 0) {
+            n5 = stup[char4]
+        }
+    }
+    if (char3 == 0 && char2 == 0 && char1 == 0) nX = nX.dropLast(1)
+    if (char2 == 1 && char1 in 0..9) n2 = n2.dropLast(1)
+    return n6 + n5 + n4 + nX + n3 + n2 + n1.dropLast(1)
+}
