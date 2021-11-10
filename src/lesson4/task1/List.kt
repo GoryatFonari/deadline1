@@ -294,6 +294,9 @@ fun russian(n: Int): String {
     if (char2 == 1 || char1 == 0) {
         n2 = ooo[char1]
         n1 = ""
+        if (char2 in 2..9 && char1 == 0) {
+            n2 = dec[char2]
+        }
     }
     if (char5 == 1) {
         n5 = ooo[char4]
