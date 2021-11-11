@@ -295,6 +295,9 @@ fun russian(n: Int): String {
     if (char2 == 1 || char1 == 0) {
         n2 = ""
         n1 = ooo[char1]
+        if (char2 in 2..9 && char1 == 0) {
+            n2 = dec[char2]
+        }
     }
     if (char5 == 1) {
         n5 = ""
@@ -303,16 +306,9 @@ fun russian(n: Int): String {
             n5 = stup[char4]
         }
     }
-    if (char2 in 1..9 && char1 == 0) {
+    if (char2 in 2..9 && char1 == 0) {
         n1 = " "
-        n2 = dec[char2]
-        if (char2 == 1 && char1 == 0) {
-            n1 = stup[char1]
-            n2 = ""
-        }
-        else {
-            n2 = n2.dropLast(1)
-        }
+        n2 = n2.dropLast(1)
     }
     if (char3 == 0 && char2 == 0 && char1 == 0) nX = nX.dropLast(1)
     return n6 + n5 + n4 + nX + n3 + n2 + n1.dropLast(1)
