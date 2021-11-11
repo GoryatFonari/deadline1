@@ -279,7 +279,7 @@ fun russian(n: Int): String {
     val char6 = (n / 100000) % 10
     var n1 = num[char1]
     var n2 = dec[char2]
-    val n3 = hun[char3]
+    var n3 = hun[char3]
     var n4 = num[char4]
     var n5 = dec[char5]
     val n6 = hun[char6]
@@ -309,6 +309,11 @@ fun russian(n: Int): String {
     if (char2 in 2..9 && char1 == 0) {
         n1 = " "
         n2 = n2.dropLast(1)
+    }
+    if (char3 in 1..9 && char2 == 0 && char1 == 0) {
+        n3 = ""
+        n2 = ""
+        n1 = hun[char3]
     }
     if (char3 == 0 && char2 == 0 && char1 == 0) nX = nX.dropLast(1)
     return n6 + n5 + n4 + nX + n3 + n2 + n1.dropLast(1)
