@@ -266,7 +266,7 @@ fun roman(n: Int): String {
  */
 fun russian(n: Int): String {
     val thous = listOf("тысяча ", "тысячи ", "тысяч ")
-    val num = listOf("", " один ", " два ", " три ", " четыре ", " пять ", " шесть ", " семь ", " восемь ", " девять ")
+    val num = listOf("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     val ooo = listOf("", "одинадцать ", "двенадцать ", "тринадцать ","четырнадцать ", "пятнадцать ", "шестнадцать ", "семьнадцать ", "восемнадцать ", "девятнадцать ")
     val dec = listOf("", "", "двадцать ","тридцать ","сорок ","пятьдесят ", "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
     val hun = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
@@ -292,20 +292,19 @@ fun russian(n: Int): String {
         if (char6 == 0 && char5 == 0 && char4 == 0) nX = ""
     }
     if (char2 == 1 || char1 == 0) {
-        n2 = ooo[char1]
-        n1 = ""
+        n2 = ""
+        n1 = ooo[char1]
         if (char2 in 2..9 && char1 == 0) {
             n2 = dec[char2]
         }
     }
     if (char5 == 1) {
-        n5 = ooo[char4]
-        n4 = ""
+        n5 = ""
+        n4 = ooo[char4]
         if (char5 == 1 && char4 == 0) {
             n5 = stup[char4]
         }
     }
     if (char3 == 0 && char2 == 0 && char1 == 0) nX = nX.dropLast(1)
-    //if (char2 in 1..9 && char1 == 0) n2 = n2.dropLast(1)
-    return n6 + n5 + n4 + nX + n3 + n2.dropLast(1) + n1.dropLast(1)
+    return n6 + n5 + n4 + nX + n3 + n2 + n1.dropLast(1)
 }
