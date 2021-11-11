@@ -287,6 +287,7 @@ fun russian(n: Int): String {
     if (char4 in 1..2) n4 = stup[char4]
     if (char4 == 1) nX = thous[0]
     if (char4 in 2..4) nX = thous[1]
+    if (char5 == 1 && char4 in 1..9) nX = thous[2]
     if (char4 in 5..9 || char4 == 0) {
         nX = thous[2]
         if (char6 == 0 && char5 == 0 && char4 == 0) nX = ""
