@@ -230,11 +230,11 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  */
 fun hasAnagrams(words: List<String>): Boolean {
 
-    var comp: MutableMap<String,  MutableMap<Char, Int>> = mutableMapOf()
+    val comp: MutableMap<String,  MutableMap<Char, Int>> = mutableMapOf()
     for (it in words) {
-        var inMap: MutableMap<Char, Int> = mutableMapOf()
+        val inMap: MutableMap<Char, Int> = mutableMapOf()
         for (character in it) {
-            var s = inMap.getOrDefault(character, 0) + 1
+            val s = inMap.getOrDefault(character, 0) + 1
             inMap += character to s
         }
         println(inMap)
