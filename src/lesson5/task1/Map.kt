@@ -208,8 +208,14 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
-
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val com = emptyMap<String, Int>().toMutableMap()
+    for (it in list) {
+        val s = com.getOrDefault(it, 0) + 1
+        com += it to s
+    }
+    return com.filterValues { it > 1}
+}
 /**
  * Средняя (3 балла)
  *
@@ -222,8 +228,26 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
-
+fun hasAnagrams(words: List<String>): Boolean {
+    val comp: MutableMap<String, MutableMap<Char, Int>> = mutableMapOf()
+    for (it in words) {
+        val inMap: MutableMap<Char, Int> = mutableMapOf()
+        for (character in it) {
+            val s = inMap.getOrDefault(character, 0) + 1
+            inMap += character to s
+        }
+        comp.put(it, inMap)
+    }
+    for (i in comp) {
+        for (j in comp) {
+            if (i.key != j.key) {
+                if (i.value == j.value)
+                    return true
+            }
+        }
+    }
+    return false
+}
 /**
  * Сложная (5 баллов)
  *
