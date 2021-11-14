@@ -154,7 +154,18 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val map: MutableMap<String, String> = mutableMapOf()
+    for (i in mapA) {
+        for (j in mapB) {
+            if (i.key == j.key) {
+                map.getValue(j.toString())
+
+            }
+        }
+    }
+    return map
+}
 
 /**
  * Средняя (4 балла)
@@ -229,25 +240,22 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-
-    val comp: MutableMap<String,  MutableMap<Char, Int>> = mutableMapOf()
-    for (it in words) {
+    val list: MutableList<Pair<String, MutableMap<Char, Int>>> = mutableListOf()
+    for (str in words) {
         val inMap: MutableMap<Char, Int> = mutableMapOf()
-        for (character in it) {
-            val s = inMap.getOrDefault(character, 0) + 1
-            inMap += character to s
+        for (ch in str) {
+            val s = inMap.getOrDefault(ch, 0) + 1
+            inMap += ch to s
         }
-        comp.put(it, inMap)
+        val pair = str to inMap
+        list.add(pair)
     }
-    for (i in comp) {
-
-        for (j in comp) {
-            if (i.key == "" && j.key == "") return true
-            if (i.key != j.key) {
-                if (i.value == j.value) {
-                    return true
-                }
+    for (index in 0..list.size - 1) {
+        for (index2 in index + 1..list.size - 1) {
+            if (list[index].second == list[index2].second) {
+                return true
             }
+
         }
     }
     return false
