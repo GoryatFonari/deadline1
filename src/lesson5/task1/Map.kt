@@ -237,7 +237,6 @@ fun hasAnagrams(words: List<String>): Boolean {
             val s = inMap.getOrDefault(character, 0) + 1
             inMap += character to s
         }
-        println(inMap)
         comp.put(it, inMap)
     }
     for (i in comp) {
