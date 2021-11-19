@@ -154,18 +154,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val map: MutableMap<String, String> = mutableMapOf()
-    for (i in mapA) {
-        for (j in mapB) {
-            if (i.key == j.key) {
-                map.getValue(j.toString())
-
-            }
-        }
-    }
-    return map
-}
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
 
 /**
  * Средняя (4 балла)
@@ -225,8 +214,9 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
         val s = com.getOrDefault(it, 0) + 1
         com += it to s
     }
-    return com.filterValues { it > 1}
+    return com.filterValues { it > 1 }
 }
+
 /**
  * Средняя (3 балла)
  *
@@ -255,11 +245,11 @@ fun hasAnagrams(words: List<String>): Boolean {
             if (list[index].second == list[index2].second) {
                 return true
             }
-
         }
     }
     return false
 }
+
 /**
  * Сложная (5 баллов)
  *
@@ -313,7 +303,23 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    val map: MutableMap<Int, Int> = mutableMapOf()
+    for (i in list.indices) {
+        val k = map.getOrDefault(i, list[i])
+        map += i to k
+    }
+    for (i in map.keys) {
+        val delta = number - map.getValue(i)
+        val cMap = map.filter { (key, value) -> key != i && value != map.getValue(i) }
+        for (j in cMap.keys) {
+            if (cMap.getValue(j) == delta) {
+                return i to j
+            }
+        }
+    }
+    return -1 to -1
+}
 
 /**
  * Очень сложная (8 баллов)
