@@ -309,13 +309,11 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
         val k = map.getOrDefault(i, list[i])
         map += i to k
     }
-    for (i in map.keys) {
-        val delta = number - map.getValue(i)
-        val cMap = map.filter { (key, value) -> key != i && value != map.getValue(i) }
-        for (j in cMap.keys) {
-            if (cMap.getValue(j) == delta) {
-                return i to j
-            }
+    while (map.isNotEmpty()) {
+        for (i in 0 until map.size) {
+            val delta = number - map.getValue(i)
+            map.remove(i)
+            for (it in map.keys) if (map.getValue(it) == delta) return i to it
         }
     }
     return -1 to -1
