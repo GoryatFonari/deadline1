@@ -130,13 +130,10 @@ fun bestLongJump(jumps: String): Int = TODO()
 fun bestHighJump(jumps: String): Int {
     val test = """[^(0-9)\s+%-]""".toRegex()
     if (test.find(jumps) == null) {
-        var reg = Regex("""(\D\s\d\d\d\s%)""").replace(jumps, "")
+        var reg = Regex("""(\D\s\d{3}\s%)""").replace(jumps, "")
         reg = Regex("""\s\D""").replace(reg, "")
         val list = reg.split(" ")
-        val list2: MutableList<Int> = mutableListOf()
-        for (it in list.indices) {
-            list2.add(it, list[it].toInt())
-        }
+        val list2 = list.map { it.toInt() }
         return list2.maxOf { it }
     }
     return -1
