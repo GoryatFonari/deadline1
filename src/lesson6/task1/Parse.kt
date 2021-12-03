@@ -294,11 +294,13 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     list.clear()
     brase.clear()
     currentCell = 0
+
     var count = 0
     var index = 0
     currentCell = cells / 2
     val code = compile(commands)
     for (i in 0 until cells) list.add(i, 0)
+    if (commands == "") return list
     while (limit != count) {
         index = when (code[index].first) {
             '<' -> leftShift(code[index].second)
