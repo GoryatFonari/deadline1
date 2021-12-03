@@ -257,11 +257,13 @@ fun compile(commands: String): List<Pair<Char, Int>> {
 
 fun leftShift(index: Int): Int {
     currentCell--
+    if (currentCell < 0) throw IllegalStateException()
     return index
 }
 
 fun rightShift(index: Int): Int {
     currentCell++
+    if (currentCell > list.size) throw IllegalStateException()
     return index
 }
 
@@ -314,7 +316,6 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
         }
         count++
         if (code.size <= index) break
-        if (currentCell > list.size || currentCell < 0) throw IllegalStateException()
     }
     return list
 }
