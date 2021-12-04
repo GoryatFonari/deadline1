@@ -263,7 +263,7 @@ fun leftShift(index: Int): Int {
 
 fun rightShift(index: Int): Int {
     currentCell++
-    if (currentCell > list.size) throw IllegalStateException()
+    if (currentCell >= list.size) throw IllegalStateException()
     return index
 }
 
