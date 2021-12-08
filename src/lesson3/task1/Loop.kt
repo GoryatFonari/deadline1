@@ -2,9 +2,7 @@
 
 package lesson3.task1
 
-import java.lang.Math.pow
 import kotlin.math.sqrt
-import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -82,18 +80,7 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int {
-    var result: Int = 0
-    var arr = arrayOfNulls<Int>(51)
-    arr[0] = 0
-    arr[1] = 1
-    if (n == 1) result = 1
-    for (i in 2..n) {
-        arr[i] = arr[i - 1]?.plus(arr[i - 2]!!)
-        result = arr[i]!!
-    }
-    return result
-}
+fun fib(n: Int): Int = TODO()
 
 /**
  * Простая (2 балла)
@@ -151,15 +138,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int {
-    var reverse: Int = 0
-    var m: Int = n
-    do {
-        reverse = reverse * 10 + m % 10
-        m /= 10
-    } while (m > 0)
-    return reverse
-}
+fun revert(n: Int): Int = TODO()
 
 /**
  * Средняя (3 балла)
@@ -213,44 +192,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-private fun degree(n: Int, x: Int): Int {
-    var firstValue: Double = 1.0
-    for (i in 1..n) {
-        firstValue *= x
-    }
-    return firstValue.toInt()
-}
-fun squareSequenceDigit(n: Int): Int {
-    val result: Int
-    var a: Int = 0
-    var num: Int = 1
-    var m: Int = 0
-    var q: Int = n
-    var x1: Int = 0
-    var x2: Int = 0
-    while (true) {
-        x1 = num * num
-        x2 = x1
-        a = 0
-        do {
-            a += 1
-            x2 /= 10
-        } while (x2 > 0)
-        if (q - a > 0) {
-            q -= a
-            num += 1
-        } else if (q - a == 0) {
-            m = x1 % 10
-            num += 1
-            result = m
-            return result
-        } else {
-            num += 1
-            result = (x1 / degree(abs(q -a), 10)) % 10
-            return result
-        }
-    }
-}
+fun squareSequenceDigit(n: Int): Int = TODO()
 
 /**
  * Сложная (5 баллов)

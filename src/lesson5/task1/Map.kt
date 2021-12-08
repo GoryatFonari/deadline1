@@ -208,14 +208,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> {
-    val com = emptyMap<String, Int>().toMutableMap()
-    for (it in list) {
-        val s = com.getOrDefault(it, 0) + 1
-        com += it to s
-    }
-    return com.filterValues { it > 1 }
-}
+fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
 
 /**
  * Средняя (3 балла)
@@ -229,26 +222,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean {
-    val list: MutableList<Pair<String, MutableMap<Char, Int>>> = mutableListOf()
-    for (str in words) {
-        val inMap = mutableMapOf<Char, Int>()
-        for (ch in str) {
-            val s = inMap.getOrDefault(ch, 0) + 1
-            inMap += ch to s
-        }
-        val pair = str to inMap
-        list.add(pair)
-    }
-    for (index in 0..list.size - 1) {
-        for (index2 in index + 1..list.size - 1) {
-            if (list[index].second == list[index2].second) {
-                return true
-            }
-        }
-    }
-    return false
-}
+fun hasAnagrams(words: List<String>): Boolean = TODO()
 
 /**
  * Сложная (5 баллов)
@@ -303,20 +277,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val map = mutableMapOf<Int, Int>()
-    for (i in list.indices) {
-        map += i to map.getOrDefault(i, list[i])
-    }
-    while (map.isNotEmpty()) {
-        for (i in 0 until map.size) {
-            val delta = number - map.getValue(i)
-            map.remove(i)
-            for (it in map.keys) if (map.getValue(it) == delta) return i to it
-        }
-    }
-    return -1 to -1
-}
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
 
 /**
  * Очень сложная (8 баллов)
