@@ -89,7 +89,7 @@ private fun finder(doc: String, match: String): Int {
     val docLow = doc.lowercase(Locale.getDefault())
     var counter = 0
     var fromIndex = 0
-    while(docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex) > -1) {
+    while (docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex) > -1) {
         fromIndex = docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex)
         fromIndex++
         counter++
