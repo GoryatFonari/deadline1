@@ -85,35 +85,18 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     }
     return map
 }
+
 private fun finder(doc: String, match: String): Int {
     val docLow = doc.lowercase(Locale.getDefault())
-    var counter = 0
+    var count = 0
     var fromIndex = 0
     while (docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex) > -1) {
         fromIndex = docLow.indexOf(match.lowercase(Locale.getDefault()), fromIndex)
         fromIndex++
-        counter++
+        count++
     }
-    return counter
+    return count
 }
-
-/**
-val input = (File(inputName).readText()).lowercase(Locale.getDefault())
-val map: MutableMap<String, Int> = mutableMapOf()
-var counter = 0
-for (words in substrings) map += words to map.getOrDefault(words, 0)
-for (words in substrings) {
-val reg: Regex = if (words == ".") Regex("[.]")
-else Regex(words.lowercase(Locale.getDefault()))
-val finder = reg.findAll(input, 0)
-repeat(finder.count()) {
-counter++
-map[words] = map.getValue(words) + 1
-counter = 0
-}
-}
-return map
- */
 
 /**
  * Средняя (12 баллов)
@@ -181,7 +164,63 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val input = File(inputName).readLines().toMutableList()
+    val output = File(outputName).bufferedWriter()
+    var max = 0
+    var spaceStr = String()
+    for (i in input.indices) {
+        input[i] = input[i].trimIndent()
+        input[i] = Regex("""\s+""").replace(input[i], " ")
+        if (max < input[i].length) max = input[i].length
+    }
+    var i = 0
+    while (i < max) {
+        spaceStr += " "
+        i++
+    }
+    for (line in input) {
+        val predicate: (Char) -> Boolean = {it == ' '}
+        val count = line.count(predicate)
+        if (count == 0) {
+            output.write(line)
+            output.newLine()
+        }
+        else {
+            val needVal = (max - line.length) / count
+            var lineCopy = line.replace(" ", (spaceStr.subSequence(0, needVal + 1)).toString())
+            if (lineCopy.length == max) {
+                output.write(lineCopy)
+                output.newLine()
+            }
+            else {
+                lineCopy = finder(lineCopy,(spaceStr.subSequence(0, needVal + 1)).toString(), max)
+                output.write(lineCopy)
+                output.newLine()
+            }
+        }
+    }
+    output.close()
+    println(output)
+}
+private fun finder(doc: String, match: String, max: Int): String {
+    var docLen = doc.length
+    var fromIndex = 0
+    var currentNum = 0
+    val list = (doc.split(match)).toMutableList()
+    while (docLen != max) {
+        fromIndex = doc.indexOf(match, fromIndex)
+        currentNum++
+        docLen++
+        fromIndex++
+    }
+    for (i in 0 until currentNum) {
+        list[i] = list[i] + "$match "
+    }
+    for (i in currentNum until list.size) {
+        if (i == list.size - 1) list[i] = list[i]
+        else list[i] = list[i] + match
+    }
+    return Regex("""\s\,\s""").replace(list.joinToString { it }, " ")
 }
 
 /**
