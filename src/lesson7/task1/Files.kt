@@ -179,21 +179,19 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         i++
     }
     for (line in input) {
-        val predicate: (Char) -> Boolean = {it == ' '}
+        val predicate: (Char) -> Boolean = { it == ' ' }
         val count = line.count(predicate)
         if (count == 0) {
             output.write(line)
             output.newLine()
-        }
-        else {
+        } else {
             val needVal = (max - line.length) / count
             var lineCopy = line.replace(" ", (spaceStr.subSequence(0, needVal + 1)).toString())
             if (lineCopy.length == max) {
                 output.write(lineCopy)
                 output.newLine()
-            }
-            else {
-                lineCopy = finder(lineCopy,(spaceStr.subSequence(0, needVal + 1)).toString(), max)
+            } else {
+                lineCopy = finder(lineCopy, (spaceStr.subSequence(0, needVal + 1)).toString(), max)
                 output.write(lineCopy)
                 output.newLine()
             }
@@ -202,6 +200,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     output.close()
     println(output)
 }
+
 private fun finder(doc: String, match: String, max: Int): String {
     var docLen = doc.length
     var fromIndex = 0
