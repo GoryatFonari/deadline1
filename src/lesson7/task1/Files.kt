@@ -169,7 +169,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     var max = 0
     var spaceStr = String()
     for (i in input.indices) {
-        input[i] = input[i].trimIndent()
+        input[i] = input[i].trim()
         input[i] = Regex("""\s+""").replace(input[i], " ")
         if (max < input[i].length) max = input[i].length
     }
@@ -202,24 +202,14 @@ fun alignFileByWidth(inputName: String, outputName: String) {
 }
 
 private fun finder(doc: String, match: String, max: Int): String {
-    var docLen = doc.length
-    var fromIndex = 0
-    var currentNum = 0
+    val addionalSpaces = max - doc.length
     val list = (doc.split(match)).toMutableList()
-    while (docLen != max) {
-        fromIndex = doc.indexOf(match, fromIndex)
-        currentNum++
-        docLen++
-        fromIndex++
-    }
-    for (i in 0 until currentNum) {
-        list[i] = list[i] + "$match "
-    }
-    for (i in currentNum until list.size) {
-        if (i == list.size - 1) list[i] = list[i]
-        else list[i] = list[i] + match
-    }
-    return Regex("""\s\,\s""").replace(list.joinToString { it }, " ")
+    for (i in 0 until addionalSpaces) list[i] = list[i] + "$match "
+    for (i in addionalSpaces until list.size - 1) list[i] = list[i] + match
+
+    var newDoc = String()
+    for (str in list) newDoc += str
+    return newDoc
 }
 
 /**
