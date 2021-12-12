@@ -5,6 +5,7 @@ package lesson6.task1
 import java.lang.IllegalArgumentException
 import java.util.*
 
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -177,6 +178,8 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  */
 fun mostExpensive(description: String): String {
     if (description == "") return ""
+    val test = Regex("""[А-Яа-я\s0-9\.\;]""").find(description)
+    if (test == null) return ""
     val list = description.split("; ", " ")
     val map: MutableMap<String, Double> = mutableMapOf()
     for (i in list.indices) {
