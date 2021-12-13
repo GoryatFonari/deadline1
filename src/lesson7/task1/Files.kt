@@ -167,16 +167,10 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val input = File(inputName).readLines().toMutableList()
     val output = File(outputName).bufferedWriter()
     var max = 0
-    var spaceStr = String()
     for (i in input.indices) {
         input[i] = input[i].trim()
         input[i] = Regex("""\s+""").replace(input[i], " ")
         if (max < input[i].length) max = input[i].length
-    }
-    var i = 0
-    while (i < max) {
-        spaceStr += " "
-        i++
     }
     for (line in input) {
         val predicate: (Char) -> Boolean = { it == ' ' }
@@ -186,19 +180,19 @@ fun alignFileByWidth(inputName: String, outputName: String) {
             output.newLine()
         } else {
             val needVal = (max - line.length) / count
-            var lineCopy = line.replace(" ", (spaceStr.subSequence(0, needVal + 1)).toString())
+            val appendedSpace = buildString { for (i in 0..needVal) append(" ") }
+            var lineCopy = line.replace(" ", appendedSpace)
             if (lineCopy.length == max) {
                 output.write(lineCopy)
                 output.newLine()
             } else {
-                lineCopy = adder(lineCopy, (spaceStr.subSequence(0, needVal + 1)).toString(), max)
+                lineCopy = adder(lineCopy, appendedSpace, max)
                 output.write(lineCopy)
                 output.newLine()
             }
         }
     }
     output.close()
-    println(output)
 }
 private fun adder(doc: String, match: String, max: Int): String {
     val additionalSpaces = max - doc.length
