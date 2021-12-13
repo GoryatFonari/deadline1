@@ -191,7 +191,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
                 output.write(lineCopy)
                 output.newLine()
             } else {
-                lineCopy = finder(lineCopy, (spaceStr.subSequence(0, needVal + 1)).toString(), max)
+                lineCopy = adder(lineCopy, (spaceStr.subSequence(0, needVal + 1)).toString(), max)
                 output.write(lineCopy)
                 output.newLine()
             }
@@ -200,12 +200,11 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     output.close()
     println(output)
 }
-
-private fun finder(doc: String, match: String, max: Int): String {
-    val addionalSpaces = max - doc.length
+private fun adder(doc: String, match: String, max: Int): String {
+    val additionalSpaces = max - doc.length
     val list = (doc.split(match)).toMutableList()
-    for (i in 0 until addionalSpaces) list[i] = list[i] + "$match "
-    for (i in addionalSpaces until list.size - 1) list[i] = list[i] + match
+    for (i in 0 until additionalSpaces) list[i] = list[i] + "$match "
+    for (i in additionalSpaces until list.size - 1) list[i] = list[i] + match
 
     var newDoc = String()
     for (str in list) newDoc += str
